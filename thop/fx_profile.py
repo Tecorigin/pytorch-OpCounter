@@ -1,10 +1,14 @@
+# Adapted to tecorigin hardware
 import logging
 import torch
 import torch as th
 import torch.nn as nn
-from distutils.version import LooseVersion
+try:
+    from packaging.version import Version
+except ImportError:
+    from distutils.version import LooseVersion as Version
 
-if LooseVersion(torch.__version__) < LooseVersion("1.8.0"):
+if Version(torch.__version__) < Version("1.8.0"):
     logging.warning(
         f"torch.fx requires version higher than 1.8.0. "
         f"But You are using an old version PyTorch {torch.__version__}. "
