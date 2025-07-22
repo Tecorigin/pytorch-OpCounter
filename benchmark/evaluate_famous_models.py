@@ -29,7 +29,10 @@ else:
     print("No GPU found, using CPU instead")
 
 for name in model_names:
-    model = models.__dict__[name]().to(device)
+    if name.startswith("googlenet") or name.startswith("inception"):
+        model = models.__dict__[name](init_weights=True).to(device)
+    else:
+        model = models.__dict__[name]().to(device)
     dsize = (1, 3, 224, 224)
     if "inception" in name:
         dsize = (1, 3, 299, 299)
